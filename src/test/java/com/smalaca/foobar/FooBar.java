@@ -8,7 +8,10 @@ public class FooBar {
     }
 
     public String asString() {
-        if (integer % 3 == 0) {
+
+        if (integer % 15 == 0) {
+            return "FooBar";
+        } else if (integer % 3 == 0) {
             return "Foo";
         } else if (integer % 5 == 0) {
             return "Bar";

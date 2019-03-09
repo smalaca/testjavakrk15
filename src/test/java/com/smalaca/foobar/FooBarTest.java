@@ -47,4 +47,14 @@ public class FooBarTest {
 
         assertEquals("Bar", result);
     }
+
+    @Test
+    public void shouldReturnFooBarWhenNumberIsDivisibleByFifteen() {
+        int divisibleByFifteen = 30;
+        FooBar fooBar = new FooBar(divisibleByFifteen);
+
+        String result = fooBar.asString();
+
+        assertEquals("FooBar", result);
+    }
 }
