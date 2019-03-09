@@ -27,4 +27,24 @@ public class FooBarTest {
 
         assertEquals(anyIntAsString, result);
     }
+
+    @Test
+    public void shouldReturnFooWhenNumberIsDivisibleByThree() {
+        int divisibleByThree = 69;
+        FooBar fooBar = new FooBar(divisibleByThree);
+
+        String result = fooBar.asString();
+
+        assertEquals("Foo", result);
+    }
+
+    @Test
+    public void shouldReturnBarWhenNumberIsDivisibleByFive() {
+        int divisibleByFive = 25;
+        FooBar fooBar = new FooBar(divisibleByFive);
+
+        String result = fooBar.asString();
+
+        assertEquals("Bar", result);
+    }
 }

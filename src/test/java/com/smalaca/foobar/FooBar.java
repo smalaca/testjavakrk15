@@ -8,6 +8,12 @@ public class FooBar {
     }
 
     public String asString() {
+        if (integer % 3 == 0) {
+            return "Foo";
+        } else if (integer % 5 == 0) {
+            return "Bar";
+        }
+
         return String.valueOf(integer);
     }
 }
