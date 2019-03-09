@@ -24,7 +24,7 @@ public class CourseTest {
     @Test
     public void shouldHaveStartedBeforeGivenDate() {
         Course course = new Course(ANY_COURSE_NAME, LocalDate.of(2019, 3, 1));
-        LocalDate presentDate = LocalDate.now();
+        LocalDate presentDate = LocalDate.of(2019, 3, 3);
 
         boolean result = course.wasStartedBefore(presentDate);
 
@@ -37,6 +37,24 @@ public class CourseTest {
         LocalDate presentDate = LocalDate.of(2018, 3, 1);
 
         boolean result = course.wasStartedBefore(presentDate);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void shouldHaveStarted() {
+        Course course = new Course(ANY_COURSE_NAME, LocalDate.now().minusDays(2));
+
+        boolean result = course.isStarted();
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void shouldHaveNotStarted() {
+        Course course = new Course(ANY_COURSE_NAME, LocalDate.now().plusDays(2));
+
+        boolean result = course.isStarted();
 
         assertFalse(result);
     }

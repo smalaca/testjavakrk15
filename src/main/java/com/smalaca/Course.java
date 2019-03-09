@@ -18,4 +18,8 @@ public class Course {
     public boolean wasStartedBefore(LocalDate date) {
         return startDate.isBefore(date);
     }
+
+    public boolean isStarted() {
+        return wasStartedBefore(LocalDate.now());
+    }
 }
