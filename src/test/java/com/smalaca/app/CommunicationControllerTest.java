@@ -8,6 +8,7 @@ import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 
 public class CommunicationControllerTest {
+    private static final String ANY_USER_ID = "123";
     private CommunicationController communicationController;
     private GmailClient gmailClient;
     private UserRepository userRepository;
@@ -22,27 +23,25 @@ public class CommunicationControllerTest {
     @Test
     public void shouldSendEmail() {
         //given
-        String userId = "123";
-        String message = "Can you lend 50 PLN?";
-        String emailAddress = "sebastian.malaca@gmail.com";
-        givenUserWith(userId, emailAddress);
+        String anyMessage = "Can you lend 50 PLN?";
+        String anyEmailAddress = "sebastian.malaca@gmail.com";
+        givenUserWith(ANY_USER_ID, anyEmailAddress);
 
         //when
-        communicationController.send(userId, message);
+        communicationController.send(ANY_USER_ID, anyMessage);
 
         //then
-        thenMailShouldBeSent(message, emailAddress);
+        thenMailShouldBeSent(anyMessage, anyEmailAddress);
     }
 
     @Test(expected = UserNotFoundException.class)
     public void shouldThrowUserNotFoundException() {
         //given
-        String userId = "123";
-        String message = "Can you lend 50 PLN?"; // message not needed
-        givenNotExistingUser(userId);
+        String dummyMessage = "Can you lend 50 PLN?";
+        givenNotExistingUser(ANY_USER_ID);
 
         //when
-        communicationController.send(userId, message);
+        communicationController.send(ANY_USER_ID, dummyMessage);
     }
 
     private void givenNotExistingUser(String userId) {
