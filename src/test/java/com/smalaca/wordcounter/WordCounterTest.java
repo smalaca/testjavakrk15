@@ -1,15 +1,29 @@
 package com.smalaca.wordcounter;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.BDDMockito;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 
 public class WordCounterTest {
+
+    private WordCounter wordCounter;
+    private Translator translator;
+
+    @Before
+    public void initWordCounter() {
+        translator = mock(Translator.class);
+        BDDMockito.given(translator.isEnglishWord(anyString())).willReturn(false);
+
+        wordCounter = new WordCounter(translator);
+    }
 
     @Test
     public void shouldReturnZeroIfNoAddedWords() {
         String anyString = "kot";
-        WordCounter wordCounter = new WordCounter();
 
         int result = wordCounter.countWords(anyString);
 
@@ -19,7 +33,6 @@ public class WordCounterTest {
     @Test
     public void shouldReturnWordCountIfAddedWord() {
         String anyString = "kot";
-        WordCounter wordCounter = new WordCounter();
         wordCounter.addWord(anyString);
 
         int result = wordCounter.countWords(anyString);
@@ -29,7 +42,6 @@ public class WordCounterTest {
 
     @Test
     public void shouldReturnZeroIfDifferentWords() {
-        WordCounter wordCounter = new WordCounter();
         wordCounter.addWord("kot");
 
         int result = wordCounter.countWords("pies");
@@ -40,7 +52,6 @@ public class WordCounterTest {
     @Test
     public void shouldCountWords() {
         String anyWord = "kot";
-        WordCounter wordCounter = new WordCounter();
         wordCounter.addWord(anyWord);
         wordCounter.addWord(anyWord);
 
@@ -51,17 +62,13 @@ public class WordCounterTest {
 
     @Test
     public void shouldCountWordsInDifferentLanguages() {
-        WordCounter wordCounter = new WordCounter();
+        BDDMockito.given(translator.translate("cat")).willReturn("kot");
+        BDDMockito.given(translator.isEnglishWord("cat")).willReturn(true);
         wordCounter.addWord("kot");
         wordCounter.addWord("cat");
-        givenTranslation("kot", "cat");
 
         int result = wordCounter.countWords("cat");
 
         assertEquals(2, result);
-    }
-
-    private void givenTranslation(String plWord, String engWord) {
-
     }
 }
