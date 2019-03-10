@@ -4,4 +4,6 @@ import com.smalaca.app.domain.User;
 
 public interface UserRepository {
     User getBy(String userId);
+
+    boolean exist(String userId);
 }
