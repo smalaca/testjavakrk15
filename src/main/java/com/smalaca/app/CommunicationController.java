@@ -16,6 +16,6 @@ public class CommunicationController {
         User user = userRepository.getBy(userId);
         String emailAddress = user.getEmailAddress();
 
-        gmailClient.sent(emailAddress, message);
+        gmailClient.send(emailAddress, message);
     }
 }
