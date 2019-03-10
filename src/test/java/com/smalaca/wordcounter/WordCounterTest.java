@@ -36,4 +36,16 @@ public class WordCounterTest {
 
         assertEquals(0, result);
     }
+
+    @Test
+    public void shouldCountWords() {
+        String anyWord = "kot";
+        WordCounter wordCounter = new WordCounter();
+        wordCounter.addWord(anyWord);
+        wordCounter.addWord(anyWord);
+
+        int result = wordCounter.countWords(anyWord);
+
+        assertEquals(2, result);
+    }
 }

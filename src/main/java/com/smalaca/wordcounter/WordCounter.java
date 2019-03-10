@@ -1,16 +1,16 @@
 package com.smalaca.wordcounter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WordCounter {
-    private final Set<String> words = new HashSet();
+    private final Map<String, Integer> words = new HashMap<>();
 
     public int countWords(String word){
-        return words.contains(word) ? 1 : 0;
+        return words.getOrDefault(word, 0);
     }
 
     public void addWord(String word) {
-        words.add(word);
+        words.put(word, countWords(word) + 1);
     }
 }
