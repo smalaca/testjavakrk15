@@ -22,4 +22,8 @@ public class User {
                 Objects.equals(password, user.password) &&
                 Objects.equals(emailAddress, user.emailAddress);
     }
+
+    public boolean hasLoginSameAs(String login) {
+        return this.login.equals(login);
+    }
 }
