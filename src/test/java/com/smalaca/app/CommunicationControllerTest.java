@@ -52,6 +52,7 @@ public class CommunicationControllerTest {
     private void givenUserWith(String userId, String emailAddress) {
         User user = new User(emailAddress);
         BDDMockito.given(userRepository.getBy(userId)).willReturn(user);
+        BDDMockito.given(userRepository.exist(userId)).willReturn(true);
     }
 
     private void thenMailShouldBeSent(String message, String emailAddress) {

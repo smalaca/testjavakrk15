@@ -13,9 +13,13 @@ public class CommunicationController {
     }
 
     public void send(String userId, String message) {
-        User user = userRepository.getBy(userId);
-        String emailAddress = user.getEmailAddress();
+        if (userRepository.exist(userId)) {
+            User user = userRepository.getBy(userId);
+            String emailAddress = user.getEmailAddress();
 
-        gmailClient.send(emailAddress, message);
+            gmailClient.send(emailAddress, message);
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 }
