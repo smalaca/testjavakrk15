@@ -10,6 +10,9 @@ import static org.mockito.Mockito.mock;
 
 public class WordCounterTest {
 
+    private static final String ANY_STRING = "kot";
+    private static final String DIFFFERENT_WORD = "pies";
+    private static final String ANY_STRING_TRANSLATED = "cat";
     private WordCounter wordCounter;
     private Translator translator;
 
@@ -23,51 +26,47 @@ public class WordCounterTest {
 
     @Test
     public void shouldReturnZeroIfNoAddedWords() {
-        String anyString = "kot";
-
-        int result = wordCounter.countWords(anyString);
+        int result = wordCounter.countWords(ANY_STRING);
 
         assertEquals(0, result);
     }
 
     @Test
     public void shouldReturnWordCountIfAddedWord() {
-        String anyString = "kot";
-        wordCounter.addWord(anyString);
+        wordCounter.addWord(ANY_STRING);
 
-        int result = wordCounter.countWords(anyString);
+        int result = wordCounter.countWords(ANY_STRING);
 
         assertEquals(1, result);
     }
 
     @Test
     public void shouldReturnZeroIfDifferentWords() {
-        wordCounter.addWord("kot");
+        wordCounter.addWord(ANY_STRING);
 
-        int result = wordCounter.countWords("pies");
+        int result = wordCounter.countWords(DIFFFERENT_WORD);
 
         assertEquals(0, result);
     }
 
     @Test
     public void shouldCountWords() {
-        String anyWord = "kot";
-        wordCounter.addWord(anyWord);
-        wordCounter.addWord(anyWord);
+        wordCounter.addWord(ANY_STRING);
+        wordCounter.addWord(ANY_STRING);
 
-        int result = wordCounter.countWords(anyWord);
+        int result = wordCounter.countWords(ANY_STRING);
 
         assertEquals(2, result);
     }
 
     @Test
     public void shouldCountWordsInDifferentLanguages() {
-        BDDMockito.given(translator.translate("cat")).willReturn("kot");
-        BDDMockito.given(translator.isEnglishWord("cat")).willReturn(true);
-        wordCounter.addWord("kot");
-        wordCounter.addWord("cat");
+        BDDMockito.given(translator.translate(ANY_STRING_TRANSLATED)).willReturn(ANY_STRING);
+        BDDMockito.given(translator.isEnglishWord(ANY_STRING_TRANSLATED)).willReturn(true);
+        wordCounter.addWord(ANY_STRING);
+        wordCounter.addWord(ANY_STRING_TRANSLATED);
 
-        int result = wordCounter.countWords("cat");
+        int result = wordCounter.countWords(ANY_STRING_TRANSLATED);
 
         assertEquals(2, result);
     }
