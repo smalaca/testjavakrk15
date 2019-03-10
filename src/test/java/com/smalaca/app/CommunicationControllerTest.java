@@ -25,14 +25,18 @@ public class CommunicationControllerTest {
         String userId = "123";
         String message = "Can you lend 50 PLN?";
         String emailAddress = "sebastian.malaca@gmail.com";
-        User user = new User(emailAddress);
-        BDDMockito.given(userRepository.getBy(userId)).willReturn(user);
+        givenUserWith(userId, emailAddress);
 
         //when
         communicationController.send(userId, message);
 
         //then
         thenMailShouldBeSent(message, emailAddress);
+    }
+
+    private void givenUserWith(String userId, String emailAddress) {
+        User user = new User(emailAddress);
+        BDDMockito.given(userRepository.getBy(userId)).willReturn(user);
     }
 
     private void thenMailShouldBeSent(String message, String emailAddress) {
