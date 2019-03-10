@@ -1,7 +1,21 @@
 package com.smalaca.app;
 
-public class CommunicationController {
-    public void send(String userId, String message) {
+import com.smalaca.app.communication.mail.GmailClient;
+import com.smalaca.app.domain.User;
 
+public class CommunicationController {
+    private final UserRepository userRepository;
+    private final GmailClient gmailClient;
+
+    public CommunicationController(UserRepository userRepository, GmailClient gmailClient) {
+        this.userRepository = userRepository;
+        this.gmailClient = gmailClient;
+    }
+
+    public void send(String userId, String message) {
+        User user = userRepository.getBy(userId);
+        String emailAddress = user.getEmailAddress();
+
+        gmailClient.sent(emailAddress, message);
     }
 }
