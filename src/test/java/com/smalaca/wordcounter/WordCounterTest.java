@@ -48,4 +48,20 @@ public class WordCounterTest {
 
         assertEquals(2, result);
     }
+
+    @Test
+    public void shouldCountWordsInDifferentLanguages() {
+        WordCounter wordCounter = new WordCounter();
+        wordCounter.addWord("kot");
+        wordCounter.addWord("cat");
+        givenTranslation("kot", "cat");
+
+        int result = wordCounter.countWords("cat");
+
+        assertEquals(2, result);
+    }
+
+    private void givenTranslation(String plWord, String engWord) {
+
+    }
 }
