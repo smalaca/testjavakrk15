@@ -24,12 +24,6 @@ public class WordCounter {
     }
 
     private String translate(String word) {
-        String translated = word;
-
-        if (translator.isEnglishWord(word)) {
-            translated = translator.translate(word);
-        }
-
-        return translated;
+        return translator.translate(word);
     }
 }

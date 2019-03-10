@@ -19,7 +19,8 @@ public class WordCounterTest {
     @Before
     public void initWordCounter() {
         translator = mock(Translator.class);
-        BDDMockito.given(translator.isEnglishWord(anyString())).willReturn(false);
+        BDDMockito.given(translator.translate(anyString()))
+                .willAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
 
         wordCounter = new WordCounter(translator);
     }
@@ -72,6 +73,5 @@ public class WordCounterTest {
 
     private void givenWordToTranslation() {
         BDDMockito.given(translator.translate(ANY_STRING_TRANSLATED)).willReturn(ANY_STRING);
-        BDDMockito.given(translator.isEnglishWord(ANY_STRING_TRANSLATED)).willReturn(true);
     }
 }
