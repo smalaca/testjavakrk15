@@ -61,13 +61,17 @@ public class WordCounterTest {
 
     @Test
     public void shouldCountWordsInDifferentLanguages() {
-        BDDMockito.given(translator.translate(ANY_STRING_TRANSLATED)).willReturn(ANY_STRING);
-        BDDMockito.given(translator.isEnglishWord(ANY_STRING_TRANSLATED)).willReturn(true);
+        givenWordToTranslation();
         wordCounter.addWord(ANY_STRING);
         wordCounter.addWord(ANY_STRING_TRANSLATED);
 
         int result = wordCounter.countWords(ANY_STRING_TRANSLATED);
 
         assertEquals(2, result);
+    }
+
+    private void givenWordToTranslation() {
+        BDDMockito.given(translator.translate(ANY_STRING_TRANSLATED)).willReturn(ANY_STRING);
+        BDDMockito.given(translator.isEnglishWord(ANY_STRING_TRANSLATED)).willReturn(true);
     }
 }
