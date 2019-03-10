@@ -32,6 +32,10 @@ public class CommunicationControllerTest {
         communicationController.send(userId, message);
 
         //then
+        thenMailShouldBeSent(message, emailAddress);
+    }
+
+    private void thenMailShouldBeSent(String message, String emailAddress) {
         BDDMockito.then(gmailClient)
                 .should(Mockito.times(1))
                 .send(emailAddress, message);
